@@ -1,4 +1,4 @@
-package tlogger
+package main
 
 import (
 	"fmt"
@@ -6,7 +6,6 @@ import (
 	"github.com/gookit/color"
 	"log"
 	"os"
-	"time"
 )
 
 func infoFileLogger(msg string, data interface{}){
@@ -55,7 +54,12 @@ func warningLogger(msg string, data interface{}) {
 }
 
 func getLogFile() *os.File{
-	fileName := fmt.Sprintf("logs/"+time.Now().Format("02_Jan_2006")+".txt")
+
+	if _, err := os.Stat("logs"); os.IsNotExist(err) {
+		os.Mkdir("logs",0765)
+	}
+
+	fileName := fmt.Sprintf("logs/"+arrow.Now().CFormat("02_Jan_2006")+".txt")
 	file, err := os.OpenFile(fileName, os.O_CREATE|os.O_APPEND|os.O_RDWR, 0765)
 	if err!= nil{
 		return nil
