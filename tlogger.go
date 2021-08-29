@@ -1,4 +1,4 @@
-package main
+package tlogger
 
 import (
 	"fmt"
@@ -8,28 +8,28 @@ import (
 	"os"
 )
 
-func infoFileLogger(msg string, data interface{}){
+func InfoFileLogger(msg string, data interface{}){
 	file:= getLogFile()
 	infoLog := log.New(file,"INFO:\t", log.Ldate|log.Ltime|log.Lshortfile)
 	infoLog.Println(msg,data)
 	file.Close()
 }
 
-func errorFileLogger(msg string, data interface{}){
+func ErrorFileLogger(msg string, data interface{}){
 	file:= getLogFile()
 	errorLog := log.New(file,"ERROR:\t", log.Ldate|log.Ltime|log.Lshortfile)
 	errorLog.Println(msg,data)
 	file.Close()
 }
 
-func warningFileLogger(msg string, data interface{}){
+func WarningFileLogger(msg string, data interface{}){
 	file:= getLogFile()
 	warningLog := log.New(file,"WARNING:\t", log.Ldate|log.Ltime|log.Lshortfile)
 	warningLog.Println(msg,data)
 	file.Close()
 }
 
-func debugFileLogger(msg string, data interface{}){
+func DebugFileLogger(msg string, data interface{}){
 	file:= getLogFile()
 	debugLog := log.New(file,"DEBUG:\t", log.Ldate|log.Ltime|log.Lshortfile)
 	debugLog.Println(msg,data)
@@ -37,23 +37,23 @@ func debugFileLogger(msg string, data interface{}){
 }
 
 
-func infoLogger(msg string, data interface{}) {
+func InfoLogger(msg string, data interface{}) {
 	color.Info.Println( "INFO: ", arrow.Now().CFormat("%H:%M:%S"), msg, data)
 }
 
-func debugLogger(msg string, data interface{}) {
+func DebugLogger(msg string, data interface{}) {
 	color.Debug.Println( "DEBUG: ", arrow.Now().CFormat("%H:%M:%S"), msg, data)
 }
 
-func errorLogger(msg string, data interface{}) {
+func ErrorLogger(msg string, data interface{}) {
 	color.Error.Println( "ERROR: ", arrow.Now().CFormat("%H:%M:%S"), msg, data)
 }
 
-func warningLogger(msg string, data interface{}) {
+func WarningLogger(msg string, data interface{}) {
 	color.Warn.Println( "WARNING: ", arrow.Now().CFormat("%H:%M:%S"), msg, data)
 }
 
-func getLogFile() *os.File{
+func GetLogFile() *os.File{
 
 	if _, err := os.Stat("logs"); os.IsNotExist(err) {
 		os.Mkdir("logs",0765)
